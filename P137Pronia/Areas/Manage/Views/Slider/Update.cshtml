@@ -1,0 +1,30 @@
+﻿
+@model Slider
+<form method="post">
+    <div class="mb-3">
+        <label>Title</label>
+        <input class="form-control" asp-for="Title">
+        <span class="text-danger" asp-validation-for="Title"></span>
+    </div>
+    <div class="mb-3">
+        <label>Description</label>
+        <input class="form-control" asp-for="Desc">
+        <span class="text-danger" asp-validation-for="Desc"></span>
+    </div>
+    <div class="mb-3">
+        <label>Offer</label>
+        <input class="form-control" asp-for="Offer">
+        <span class="text-danger" asp-validation-for="Offer"></span>
+    </div>
+    <div class="mb-3">
+        <label>ButtonText</label>
+        <input class="form-control" asp-for="ButtonText">
+        <span class="text-danger" asp-validation-for="ButtonText"></span>
+    </div>
+    <div class="mb-3">
+        <label>ImageUrl</label>
+        <input class="form-control" asp-for="ImageUrl">
+        <span class="text-danger" asp-validation-for="ImageUrl"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

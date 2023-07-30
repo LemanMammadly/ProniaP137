@@ -1,0 +1,79 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Models\" />
+    <None Remove="Views\Home\" />
+    <None Remove="DataAccess\" />
+    <None Remove="Areas\" />
+    <None Remove="Areas\Manage\" />
+    <None Remove="Areas\Manage\Controllers\" />
+    <None Remove="Areas\Manage\Data\" />
+    <None Remove="Areas\Manage\Models\" />
+    <None Remove="Areas\Manage\Views\" />
+    <None Remove="Areas\Manage\Views\Shared\" />
+    <None Remove="Areas\Manage\Views\Slider\" />
+    <None Remove="ViewModels\" />
+    <None Remove="ViewModels\SliderVMs\" />
+    <None Remove="Services\" />
+    <None Remove="ExtensionServices\" />
+    <None Remove="Services\Interfaces\" />
+    <None Remove="Services\Implements\" />
+    <None Remove="ExtensionServices\Interfaces\" />
+    <None Remove="ExtensionServices\Implements\" />
+    <None Remove="Extensions\" />
+    <None Remove="ViewModels\ProductVMs\" />
+    <None Remove="Areas\Manage\Views\Product\" />
+    <None Remove="ViewModels\HomeVMs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="wwwroot\" />
+    <Folder Include="DataAccess\" />
+    <Folder Include="Areas\" />
+    <Folder Include="Areas\Manage\" />
+    <Folder Include="Areas\Manage\Controllers\" />
+    <Folder Include="Areas\Manage\Data\" />
+    <Folder Include="Areas\Manage\Models\" />
+    <Folder Include="Areas\Manage\Views\" />
+    <Folder Include="Areas\Manage\Views\Shared\" />
+    <Folder Include="wwwroot\admin\" />
+    <Folder Include="Areas\Manage\Views\Slider\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels\SliderVMs\" />
+    <Folder Include="wwwroot\assets\imgs\" />
+    <Folder Include="Services\" />
+    <Folder Include="ExtensionServices\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Services\Implements\" />
+    <Folder Include="ExtensionServices\Interfaces\" />
+    <Folder Include="ExtensionServices\Implements\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="ViewModels\ProductVMs\" />
+    <Folder Include="Areas\Manage\Views\Product\" />
+    <Folder Include="ViewModels\HomeVMs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\" />
+    <Content Remove="wwwroot\admin\" />
+    <Content Remove="wwwroot\assets\imgs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.20">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.20">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.20" />
+  </ItemGroup>
+</Project>

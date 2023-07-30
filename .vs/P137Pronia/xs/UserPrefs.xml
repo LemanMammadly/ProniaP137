@@ -1,0 +1,32 @@
+﻿<Properties StartupConfiguration="{C3CED910-39C7-435C-B7C3-7BF182EB7312}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="P137Pronia/Program.cs">
+    <Files>
+      <File FileName="P137Pronia/DataAccess/ProniaDBContext.cs" Line="1" Column="1" />
+      <File FileName="P137Pronia/Program.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="P137Pronia" expanded="True">
+            <Node name="P137Pronia" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="Areas">
+                <Node name="Manage">
+                  <Node name="Models" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.P137Pronia PreferredExecutionTarget="/Applications/Google Chrome.app" />
+</Properties>
