@@ -17,12 +17,13 @@ namespace P137Pronia.Models
 		public int StockCount { get; set; }
 		[Required,Range(0,5)]
 		public byte Raiting { get; set; }
-		[Required]
 		public bool IsDeleted { get; set; }
+		[Required]
 		public string MainImage { get; set; }
 		public string? HoverImage { get; set; }
 		public ICollection<ProductImage>? ProductImages { get; set; }
-	}
+        public ICollection<ProductCategory>? ProductCategories { get; set; }
+    }
 }
 
 

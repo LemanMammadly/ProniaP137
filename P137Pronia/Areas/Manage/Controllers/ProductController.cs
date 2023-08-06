@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using P137Pronia.Extensions;
 using P137Pronia.Services.Interfaces;
 using P137Pronia.ViewModels.ProductVMs;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace P137Pronia.Areas.Manage.Controllers
 {
@@ -13,16 +15,21 @@ namespace P137Pronia.Areas.Manage.Controllers
     public class ProductController : Controller
     {
         readonly IProductService _service;
-        public ProductController(IProductService service)
+        readonly ICategoryService _catService;
+
+        public ProductController(IProductService service, ICategoryService catService)
         {
             _service = service;
+            _catService = catService;
         }
+
         public async  Task<IActionResult> Index()
         {
-            return View(await _service.GetAll(true));
+            return View(await _service.GetTable.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).ToListAsync());
         }
         public IActionResult Create()
         {
+            ViewBag.Categories = new SelectList(_catService.GetTable,"Id", "Name");
             return View();
         }
         [HttpPost]
@@ -67,7 +74,11 @@ namespace P137Pronia.Areas.Manage.Controllers
                 }
             }
 
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = new SelectList(_catService.GetTable, "Id", "Name");
+                return View();
+            }
             await _service.Create(productVM);
             return RedirectToAction(nameof(Index));
         }
@@ -86,14 +97,54 @@ namespace P137Pronia.Areas.Manage.Controllers
 
         public async Task<IActionResult> Update(int? id)
         {
-            return View(await _service.GetById(id));
+            if (id == null || id <= 0) return BadRequest();
+            var entity=await _service.GetTable.Include(p => p.ProductImages).Include(p=>p.ProductCategories).SingleOrDefaultAsync(p=>p.Id==id);
+            if (entity == null) return BadRequest();
+            ViewBag.Categories = new SelectList(_catService.GetTable, "Id", "Name");
+            UpdateProductGetVM vm = new UpdateProductGetVM
+            {
+                Name = entity.Name,
+                Description = entity.Description,
+                Price = entity.Price,
+                Discount = entity.Discount,
+                Raiting = entity.Raiting,
+                StockCount = entity.StockCount,
+                MainImage = entity.MainImage,
+                HoverImage = entity.HoverImage,
+                ProductImages = entity.ProductImages,
+                ProductCategoryIds = entity.ProductCategories.Select(p => p.CategoryId).ToList()
+            };
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int? id, UpdateProductVM productVM)
+        public async Task<IActionResult> Update(int? id, UpdateProductGetVM vm)
         {
-            await _service.Update(productVM);
+            if (id == null || id <= 0) return BadRequest();
+            var entity = await _service.GetById(id);
+            if (entity == null) return BadRequest();
+            UpdateProductVM updateVm = new UpdateProductVM
+            {
+                Name=vm.Name,
+                Description=vm.Description,
+                Price=vm.Price,
+                Discount=vm.Discount,
+                Raiting=vm.Raiting,
+                StockCount=vm.StockCount,
+                HoverImage=vm.HoverImageFile,
+                MainImage=vm.MainImageFile,
+                ProductImages=vm.ProductImagesFiles,
+                CategoryIds=vm.ProductCategoryIds
+            };
+            await _service.Update(id,updateVm);
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> DeleteImage(int id)
+        {
+            if (id == null || id <= 0) return BadRequest();
+            await _service.DeleteImage(id);
+            return Ok();
         }
     }
 }

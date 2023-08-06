@@ -6,7 +6,6 @@ namespace P137Pronia.ViewModels.ProductVMs
 
 	public record UpdateProductVM
 	{
-        public int? Id { get; set; }
         [Required, MaxLength(64)]
         public string Name { get; set; }
         [Required]
@@ -21,6 +20,9 @@ namespace P137Pronia.ViewModels.ProductVMs
         public byte Raiting { get; set; }
         public IFormFile? MainImage { get; set; }
         public IFormFile? HoverImage { get; set; }
+        public ICollection<IFormFile>? ProductImages { get; set; }
+        [Required]
+        public List<int> CategoryIds { get; set; }
     }
 }
 

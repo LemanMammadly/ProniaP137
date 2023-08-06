@@ -6,13 +6,14 @@ namespace P137Pronia.Services.Interfaces
 {
 	public interface IProductService
 	{
+		IQueryable<Product> GetTable { get; }
 		public Task<List<Product>> GetAll(bool takeAll);
-		public Task<Product> GetById(int? id);
+		public Task<Product> GetById(int? id,bool takeAll=false);
 		public Task Create(CreateProductVM productVm);
-		public Task Update(UpdateProductVM productVm);
+		public Task Update(int? id,UpdateProductVM productVm);
 		public Task Delete(int? id);
 		public Task SoftDelete(int? id);
-		IQueryable<Product> GetTable { get; }
+		public Task DeleteImage(int? id);
 	}
 }
 

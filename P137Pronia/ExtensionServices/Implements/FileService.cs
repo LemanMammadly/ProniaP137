@@ -13,7 +13,7 @@ public class FileService : IFileService
     {
         _env = env;
     }
-    public void Delete(string? path)
+    public void Delete(string path)
     {
         if (String.IsNullOrEmpty(path) || String.IsNullOrWhiteSpace(path)) throw new ArgumentNullException();
         if (!path.StartsWith(_env.WebRootPath))
@@ -47,8 +47,9 @@ public class FileService : IFileService
         if (!file.IsTypeValid(contentType)) throw new Exception();
         string newFileName = _renameFile(file);
         _checkDirectory(path);
-        await SaveAsync(file, Path.Combine(path, newFileName)); 
-        return newFileName;
+        path = Path.Combine(path, newFileName);
+        await SaveAsync(file, path); 
+        return path;
     }
 }
 

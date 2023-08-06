@@ -30,6 +30,13 @@
     <None Remove="ViewModels\ProductVMs\" />
     <None Remove="Areas\Manage\Views\Product\" />
     <None Remove="ViewModels\HomeVMs\" />
+    <None Remove="Views\Flower\" />
+    <None Remove="Areas\Manage\Views\Category\" />
+    <None Remove="ViewComponents\" />
+    <None Remove="Views\Shared\Components\" />
+    <None Remove="Views\Shared\Components\Header\" />
+    <None Remove="Views\Shared\Components\Footer\" />
+    <None Remove="ViewModels\BasketVMs\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -58,11 +65,24 @@
     <Folder Include="ViewModels\ProductVMs\" />
     <Folder Include="Areas\Manage\Views\Product\" />
     <Folder Include="ViewModels\HomeVMs\" />
+    <Folder Include="Views\Flower\" />
+    <Folder Include="Areas\Manage\Views\Category\" />
+    <Folder Include="wwwroot\assets\select2\" />
+    <Folder Include="wwwroot\assets\select2\css\" />
+    <Folder Include="wwwroot\assets\select2\js\" />
+    <Folder Include="ViewComponents\" />
+    <Folder Include="Views\Shared\Components\" />
+    <Folder Include="Views\Shared\Components\Header\" />
+    <Folder Include="Views\Shared\Components\Footer\" />
+    <Folder Include="ViewModels\BasketVMs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\" />
     <Content Remove="wwwroot\admin\" />
     <Content Remove="wwwroot\assets\imgs\" />
+    <Content Remove="wwwroot\assets\select2\" />
+    <Content Remove="wwwroot\assets\select2\css\" />
+    <Content Remove="wwwroot\assets\select2\js\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.20">
@@ -75,5 +95,6 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.20" />
   </ItemGroup>
 </Project>

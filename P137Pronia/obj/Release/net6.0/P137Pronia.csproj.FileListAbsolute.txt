@@ -61,3 +61,7 @@
 /Users/imac/Projects/P137Pronia/P137Pronia/obj/Release/net6.0/P137Pronia.pdb
 /Users/imac/Projects/P137Pronia/P137Pronia/obj/Release/net6.0/P137Pronia.genruntimeconfig.cache
 /Users/imac/Projects/P137Pronia/P137Pronia/obj/Release/net6.0/P137Pronia.csproj.AssemblyReference.cache
+/Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Microsoft.AspNetCore.JsonPatch.dll
+/Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Newtonsoft.Json.dll
+/Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Newtonsoft.Json.Bson.dll
