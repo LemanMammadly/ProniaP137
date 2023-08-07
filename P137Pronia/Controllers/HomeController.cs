@@ -14,10 +14,11 @@ public class HomeController : Controller
     private readonly ProniaDBContext _context;
     private readonly ISliderService _sliderService;
     private readonly IProductService _productService;
-    public HomeController(IProductService productService, ISliderService sliderService)
+    public HomeController(IProductService productService, ISliderService sliderService, ProniaDBContext context)
     {
         _productService = productService;
         _sliderService = sliderService;
+        _context = context;
     }
     public async Task<IActionResult> Index()
     {
@@ -73,7 +74,8 @@ public class HomeController : Controller
 
         var item = items.SingleOrDefault(i => i.Id == id);
 
-        if(item==null)
+
+        if (item==null)
         {
             item = new BasketItemVM
             {

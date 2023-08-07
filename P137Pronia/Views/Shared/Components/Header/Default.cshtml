@@ -1,4 +1,4 @@
-﻿@model Dictionary<string, string>
+﻿ @model Dictionary<string, string>
 
     <div class="preloader-activate preloader-active open_tm_preloader">
         <div class="preloader-area-wrap">
@@ -69,17 +69,35 @@
                                                 <i class="pe-7s-search"></i>
                                             </a>
                                         </li>
-                                        <li class="dropdown d-none d-lg-block">
-                                            <button class="btn btn-link dropdown-toggle ht-btn p-0" type="button" id="settingButton" data-bs-toggle="dropdown" aria-label="setting" aria-expanded="false">
-                                                <i class="pe-7s-users"></i>
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="settingButton">
-                                                <li><a class="dropdown-item" href="my-account.html">My account</a></li>
-                                                <li>
-                                                    <a class="dropdown-item" href="login-register.html">Login | Register</a>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <li class="dropdown d-none d-lg-block">
+                                                <button class="btn btn-link dropdown-toggle ht-btn p-0" type="button" id="settingButton" data-bs-toggle="dropdown" aria-label="setting" aria-expanded="false">
+                                                    <i class="pe-7s-user"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="settingButton">
+                                                    <li><a class="dropdown-item">@User.Identity.Name</a></li>
+                                                    <li>
+                                                        <a class="dropdown-item" asp-controller="Auth" asp-action="Signout">Log out</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="dropdown d-none d-lg-block">
+                                                <button class="btn btn-link dropdown-toggle ht-btn p-0" type="button" id="settingButton" data-bs-toggle="dropdown" aria-label="setting" aria-expanded="false">
+                                                    <i class="pe-7s-users"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="settingButton">
+                                                    <li><a class="dropdown-item" asp-controller="Auth" asp-action="Login">Login</a></li>
+                                                    <li>
+                                                        <a class="dropdown-item" asp-controller="Auth" asp-action="Register">Register</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        }
+
                                         <li class="d-none d-lg-block">
                                             <a href="wishlist.html">
                                                 <i class="pe-7s-like"></i>
@@ -721,23 +739,23 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="offcanvas-minicart_wrapper" id="miniCart">
                 <div class="offcanvas-body" id="insideCard">
                     @*<partial name="_BasketPartial"/>*@
-                    <div class="group-btn_wrap d-grid gap-2">
-                        <a href="cart.html" class="btn btn-dark">View Cart</a>
-                        <a href="checkout.html" class="btn btn-dark">Checkout</a>
-                    </div>
+                    @await  Component.InvokeAsync("Basket")
                 </div>
             </div>
             <div class="global-overlay"></div>
         </header>
-        <!-- Main Header Area End Here -->
+         
 
-        <script>fetch('https://localhost:7142/Home/GetBasket')
+      @*<script>
+            fetch('https://localhost:7142/Home/GetBasket')
                 .then(res => res.text())
                 .then(res => {
                     document.getElementById("insideCard").innerHTML = res
                 })
-                .catch(e => console.log(e))</script>
+                .catch(e => console.log(e))
+        </script>*@

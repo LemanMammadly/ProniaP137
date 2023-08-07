@@ -37,6 +37,9 @@
     <None Remove="Views\Shared\Components\Header\" />
     <None Remove="Views\Shared\Components\Footer\" />
     <None Remove="ViewModels\BasketVMs\" />
+    <None Remove="Views\Shared\Components\Basket\" />
+    <None Remove="Views\Auth\" />
+    <None Remove="ViewModels\AuthVMs\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -75,6 +78,9 @@
     <Folder Include="Views\Shared\Components\Header\" />
     <Folder Include="Views\Shared\Components\Footer\" />
     <Folder Include="ViewModels\BasketVMs\" />
+    <Folder Include="Views\Shared\Components\Basket\" />
+    <Folder Include="Views\Auth\" />
+    <Folder Include="ViewModels\AuthVMs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\" />
@@ -96,5 +102,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.20" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.20" />
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.20" />
   </ItemGroup>
 </Project>

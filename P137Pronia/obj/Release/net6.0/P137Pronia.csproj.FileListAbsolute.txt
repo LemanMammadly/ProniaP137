@@ -65,3 +65,9 @@
 /Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 /Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Newtonsoft.Json.dll
 /Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Newtonsoft.Json.Bson.dll
+/Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Microsoft.AspNet.Identity.Core.dll
+/Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Microsoft.AspNetCore.Cryptography.Internal.dll
+/Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Microsoft.Extensions.Identity.Core.dll
+/Users/imac/Projects/P137Pronia/P137Pronia/bin/Release/net6.0/Microsoft.Extensions.Identity.Stores.dll

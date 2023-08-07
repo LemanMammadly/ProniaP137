@@ -1381,15 +1381,15 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>let prods = document.querySelectorAll(".feat-prod .pe-7s-cart");
-        prods.forEach(prod => {
-            prod.addEventListener("click", e => { 
-                e.preventDefault();
+        document.getElementById("myTabContent").addEventListener("click", e => {
+            e.preventDefault();
+            if (e.srcElement.classList.contains("pe-7s-cart")) {
                 fetch(e.target.parentElement.href)
                     .then(res => {
                         if (res.ok) {
                             let count = document.getElementById("basket-count").innerText;
                             document.getElementById("basket-count").innerText = Number(count) + 1
-                            document.querySelector(".asd").innerText=Number(count)+1
+                            document.querySelector(".asd").innerText = Number(count) + 1
                             Command: toastr["success"]("Sebete elave olundu")
 
                             toastr.options = {
@@ -1413,23 +1413,23 @@
                         else {
                             Command: toastr["error"]("Bir xeta bas verdi - else")
 
-                                toastr.options = {
-                                    "closeButton": false,
-                                    "debug": false,
-                                    "newestOnTop": false,
-                                    "progressBar": false,
-                                    "positionClass": "toast-top-right",
-                                    "preventDuplicates": false,
-                                    "onclick": null,
-                                    "showDuration": "300",
-                                    "hideDuration": "1000",
-                                    "timeOut": "5000",
-                                    "extendedTimeOut": "1000",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
-                                }
+                            toastr.options = {
+                                "closeButton": false,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            }
                         }
                     })
                     .catch(() => {
@@ -1453,6 +1453,10 @@
                             "hideMethod": "fadeOut"
                         }
                     })
-            })
-        })</script>
+            }
+            else if (e.target.tagName.toLowerCase()==="a") {
+                window.location.href = e.target.href;
+            }
+        })
+    </script>
 }
