@@ -8,10 +8,12 @@ using P137Pronia.Extensions;
 using P137Pronia.Services.Interfaces;
 using P137Pronia.ViewModels.ProductVMs;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace P137Pronia.Areas.Manage.Controllers
 {
     [Area("Manage")]
+    [Authorize(Roles = "Admin,Editor")]
     public class ProductController : Controller
     {
         readonly IProductService _service;

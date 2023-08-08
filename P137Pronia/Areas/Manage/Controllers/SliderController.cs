@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using P137Pronia.DataAccess;
@@ -12,7 +13,8 @@ using P137Pronia.ViewModels.SliderVMs;
 
 namespace P137Pronia.Areas.Manage.Controllers
 {
-    [Area("Manage")] 
+    [Area("Manage")]
+    [Authorize(Roles = "Admin,Editor")]
     public class SliderController : Controller
     {
         private readonly ISliderService _service;

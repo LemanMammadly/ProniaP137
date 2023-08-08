@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using P137Pronia.DataAccess;
+using P137Pronia.ExtensionServices.Interfaces;
 using P137Pronia.Services.Interfaces;
 using P137Pronia.ViewModels.BasketVMs;
 using P137Pronia.ViewModels.HomeVMs;
@@ -14,11 +15,13 @@ public class HomeController : Controller
     private readonly ProniaDBContext _context;
     private readonly ISliderService _sliderService;
     private readonly IProductService _productService;
-    public HomeController(IProductService productService, ISliderService sliderService, ProniaDBContext context)
+    private readonly IEmailService _emailService;
+    public HomeController(IProductService productService, ISliderService sliderService, ProniaDBContext context, IEmailService emailService)
     {
         _productService = productService;
         _sliderService = sliderService;
         _context = context;
+        _emailService = emailService;
     }
     public async Task<IActionResult> Index()
     {
@@ -34,7 +37,16 @@ public class HomeController : Controller
     public async Task<IActionResult> LoadMore(int skip,int take)
     {
         return PartialView("_ProductPartial",await _productService.GetTable.Skip(skip).Take(take).ToListAsync());
-    }
+    } 
+
+
+    //public IActionResult SendEmail()
+    //{
+    //    _emailService.Send("lamanam@code.edu.az","verify email","");
+    //    return Ok();
+    //}
+
+
     //public string SessionGet(string? key)
     //{
     //    return HttpContext.Session.GetString(key??"")??"";

@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-); 
+);
 
 builder.Services.AddServices();
 builder.Services.AddSession();
@@ -21,12 +21,18 @@ builder.Services.AddDbContext<ProniaDBContext>(opt =>
     opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._";
     opt.Password.RequireNonAlphanumeric = false;
     opt.Password.RequiredLength = 8;
-    opt.Lockout.AllowedForNewUsers = true;
     opt.Lockout.MaxFailedAccessAttempts = 3;
     opt.SignIn.RequireConfirmedEmail = false;
 }).AddDefaultTokenProviders().AddEntityFrameworkStores<ProniaDBContext>();
 
 builder.Services.AddHttpContextAccessor();
+
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Auth/Login";
+    options.AccessDeniedPath = "/Auth/AccessDenied";
+});
 
 var app = builder.Build();
 
@@ -48,8 +54,8 @@ app.UseStaticFiles();
 
 app.UseRouting(); 
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using P137Pronia.DataAccess;
 
@@ -11,9 +12,10 @@ using P137Pronia.DataAccess;
 namespace P137Pronia.Migrations
 {
     [DbContext(typeof(ProniaDBContext))]
-    partial class ProniaDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230808190906_SelfJoinProductComment")]
+    partial class SelfJoinProductComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -322,9 +324,8 @@ namespace P137Pronia.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ApppUserId")
                         .HasColumnType("nvarchar(450)");
@@ -336,9 +337,6 @@ namespace P137Pronia.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PostedTime")
                         .HasColumnType("datetime2");
 
@@ -348,8 +346,6 @@ namespace P137Pronia.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ApppUserId");
-
-                    b.HasIndex("ParentId");
 
                     b.HasIndex("ProductId");
 
@@ -525,10 +521,6 @@ namespace P137Pronia.Migrations
                         .WithMany("ProductComments")
                         .HasForeignKey("ApppUserId");
 
-                    b.HasOne("P137Pronia.Models.ProductComment", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentId");
-
                     b.HasOne("P137Pronia.Models.Product", "Product")
                         .WithMany("ProductComments")
                         .HasForeignKey("ProductId")
@@ -536,8 +528,6 @@ namespace P137Pronia.Migrations
                         .IsRequired();
 
                     b.Navigation("ApppUser");
-
-                    b.Navigation("Parent");
 
                     b.Navigation("Product");
                 });

@@ -16,11 +16,13 @@ namespace P137Pronia.Controllers
     {
         readonly UserManager<ApppUser> _userManager;
         readonly SignInManager<ApppUser> _signInManager;
+        readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthController(UserManager<ApppUser> userManager, SignInManager<ApppUser> signInManager)
+        public AuthController(UserManager<ApppUser> userManager, SignInManager<ApppUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager; 
         }
 
         public IActionResult Register()
@@ -47,6 +49,17 @@ namespace P137Pronia.Controllers
                 }
                 return View();
             }
+
+            var res = await _userManager.AddToRoleAsync(user, "Member");
+
+            if(!res.Succeeded)
+            {
+                foreach (var item in res.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+                }
+            }
+
             return RedirectToAction(nameof(Login));
         }
 
@@ -56,13 +69,9 @@ namespace P137Pronia.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginVM vm)
+        public async Task<IActionResult> Login(string? ReturnUrl,LoginVM vm)
         {
             if (!ModelState.IsValid) return View();
-            //if (!await _userManager.Users.AnyAsync(u=>u.Email==vm.UsernameOrEmail || u.UserName==vm.UsernameOrEmail))
-            //{
-            //     ModelState.AddModelError("", "Username,email or password is wrong");
-            //}
 
             var user = await _userManager.FindByNameAsync(vm.UsernameOrEmail);
             if(user==null)
@@ -75,7 +84,7 @@ namespace P137Pronia.Controllers
                 }
             }
             var result = await _signInManager.PasswordSignInAsync(user,vm.Password,vm.RememberMe,true);
-            if(user.LockoutEnd != null)
+            if(result.IsLockedOut)
             {
                 ModelState.AddModelError("", "Wait until " + user.LockoutEnd.Value.AddHours(4).ToString("HH:mm:ss"));
                 return View();
@@ -85,7 +94,14 @@ namespace P137Pronia.Controllers
                 ModelState.AddModelError("", "Username,email or password is wrong");
                 return View();
             }
-            return RedirectToAction("Index","Home");
+            if (ReturnUrl == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return Redirect(ReturnUrl);
+            }
         }
 
         public async Task<IActionResult> Signout()

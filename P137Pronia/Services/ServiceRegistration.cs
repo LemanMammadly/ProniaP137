@@ -12,6 +12,7 @@ namespace P137Pronia.Services
 		{
             services.AddScoped<ISliderService, SliderService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<LayoutService>();

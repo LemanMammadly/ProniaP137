@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using P137Pronia.DataAccess;
@@ -16,10 +18,12 @@ namespace P137Pronia.Controllers
     {
         readonly IProductService _service;
         readonly ProniaDBContext _context;
-        public FlowerController(IProductService service, ProniaDBContext context)
+        readonly UserManager<ApppUser> _userManager;
+        public FlowerController(IProductService service, ProniaDBContext context, UserManager<ApppUser> userManager)
         {
             _service = service;
             _context = context;
+            _userManager = userManager;
         }
         public async Task<IActionResult> Index()
         {
@@ -38,7 +42,8 @@ namespace P137Pronia.Controllers
         {
             if (id == null || id <= 0) return BadRequest();
             //var entity = await _service.GetById(id);
-            var entity = await _service.GetTable.Include(p => p.ProductImages)
+            var entity = await _service.GetTable.Include(p => p.ProductImages).Include(p=>p.ProductComments)
+                .ThenInclude(pc=>pc.ApppUser)
                 .SingleOrDefaultAsync(p=>p.Id==id && p.IsDeleted==false);
             if (entity == null) return NotFound();
             return View(entity);
@@ -71,6 +76,27 @@ namespace P137Pronia.Controllers
         public async Task<IActionResult> Pagination(int skip=4,int take=4)
         {
             return PartialView("_ProductFilterPartial", await _service.GetTable.Skip(skip).Take(take).ToListAsync());
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> PostComment(AddCommentToProductVM vm)
+        {
+            if (vm.ProductId <= 0) return BadRequest();
+            if (!await _context.Products.AnyAsync(p => p.Id == vm.ProductId)) return NotFound();
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null) return NotFound();
+
+            await _context.ProductComments.AddAsync(new ProductComment
+            {
+                ProductId = vm.ProductId,
+                ApppUser=user,
+                AppUserId=user.Id,
+                Comment=vm.Comment,
+                PostedTime=DateTime.UtcNow
+            });
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Detail),new {id=vm.ProductId});
         }
     }
 }

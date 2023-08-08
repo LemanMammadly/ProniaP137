@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using P137Pronia.Services.Interfaces;
 
 namespace P137Pronia.Areas.Manage.Controllers
 {
     [Area("Manage")]
+    [Authorize(Roles ="Admin,Editor")]
     public class CategoryController : Controller
     {
         readonly ICategoryService _service;
@@ -19,6 +21,7 @@ namespace P137Pronia.Areas.Manage.Controllers
         {
             return View(await _service.GetAll());
         }
+
         public IActionResult Create()
         {
             return View();
