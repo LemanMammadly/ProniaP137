@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using P137Pronia.DataAccess;
+using P137Pronia.ExtensionServices.Interfaces;
 using P137Pronia.Models;
 using P137Pronia.ViewModels.AuthVMs;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace P137Pronia.Controllers
 {
@@ -17,12 +18,16 @@ namespace P137Pronia.Controllers
         readonly UserManager<ApppUser> _userManager;
         readonly SignInManager<ApppUser> _signInManager;
         readonly RoleManager<IdentityRole> _roleManager;
+        readonly IEmailService _emailService;
+        readonly ProniaDBContext _context;
 
-        public AuthController(UserManager<ApppUser> userManager, SignInManager<ApppUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AuthController(UserManager<ApppUser> userManager, SignInManager<ApppUser> signInManager, RoleManager<IdentityRole> roleManager, IEmailService emailService, ProniaDBContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager = roleManager; 
+            _roleManager = roleManager;
+            _emailService = emailService;
+            _context = context;
         }
 
         public IActionResult Register()
@@ -52,15 +57,65 @@ namespace P137Pronia.Controllers
 
             var res = await _userManager.AddToRoleAsync(user, "Member");
 
-            if(!res.Succeeded)
+           
+
+            if (!res.Succeeded)
             {
                 foreach (var item in res.Errors)
                 {
                     ModelState.AddModelError("", item.Description);
                 }
+                return View();
             }
 
-            return RedirectToAction(nameof(Login));
+            return RedirectToAction(nameof(ConfirmationEmailSent), new { Username = user.UserName });
+        }
+
+
+        public async Task<IActionResult> EmailConfirmation(string token,string user)
+        {
+            if (String.IsNullOrWhiteSpace(token) || String.IsNullOrWhiteSpace(user)) return BadRequest();
+            var us = await _userManager.FindByNameAsync(user);
+            await _userManager.ConfirmEmailAsync(us, token);
+            _context.UserTokens.Remove(await _context.UserTokens.SingleOrDefaultAsync(ut=>ut.ApppUserId==us.Id &&
+            ut.Key== "EmailConfirmation"));
+            _context.SaveChangesAsync();
+            return Content("Email Confirmed");
+        }
+
+        public async Task<IActionResult> ConfirmationEmailSent(string username)
+        {
+            var user =await _userManager.FindByNameAsync(username);
+            if (user == null) return BadRequest();
+            var utoken = await _context.UserTokens.SingleOrDefaultAsync(ut => ut.ApppUserId == user.Id && ut.Key == "EmailConfirmation");
+
+            if (utoken?.SendDate.AddHours(24)>DateTime.UtcNow) 
+            {
+                return Content("Mail already sent.If you dont see in your inbox.Please check your spams.You can send confirmation email after" + utoken.SendDate.AddHours(24));
+            }
+            else if(utoken?.SendDate.AddHours(24) < DateTime.UtcNow)
+            {
+                _context.Remove(utoken);
+            }
+
+            string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            string link = Url.Action("EmailConfirmation", "Auth", new { token = token, user = user.UserName },
+                Request.Scheme);
+            string text = await System.IO.File.ReadAllTextAsync(Path.Combine(Directory.GetCurrentDirectory()
+                ,"wwwroot", "emailConfirmation.html"));
+            text=text.Replace("[[username]]", user.Fullname); 
+            text=text.Replace("[[link]]", link);
+
+            _emailService.Send(user.Email, "Email Confirmation",text, true);
+
+            await _context.UserTokens.AddAsync(new UserToken
+            {
+                ApppUser = user,
+                Key = "EmailConfirmation",
+                SendDate = DateTime.UtcNow
+            });
+            await _context.SaveChangesAsync();
+            return Content("Confirmation email send succesfully!");
         }
 
         public IActionResult Login()
@@ -87,6 +142,20 @@ namespace P137Pronia.Controllers
             if(result.IsLockedOut)
             {
                 ModelState.AddModelError("", "Wait until " + user.LockoutEnd.Value.AddHours(4).ToString("HH:mm:ss"));
+                return View();
+            }
+            if(!user.EmailConfirmed)
+            {
+                var utoken = await _context.UserTokens.SingleOrDefaultAsync(ut => ut.ApppUserId == user.Id && ut.Key == "EmailConfirmation");
+
+                if (utoken?.SendDate.AddHours(24) > DateTime.UtcNow)
+                {
+                    ModelState.AddModelError("", "Mail already sent.If you dont see in your inbox.Please check your spams.You can send confirmation email after" + utoken.SendDate.AddHours(24));
+                }
+                else
+                {
+                    ModelState.AddModelError("", $"Please confirm your account <a href='/Auth/ConfirmationEmailSent?username={user.UserName}'>Send Email </a>");
+                }
                 return View();
             }
             if(!result.Succeeded)

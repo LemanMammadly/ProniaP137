@@ -43,7 +43,7 @@
                                         <input style="display:block" asp-for="RememberMe">
                                     </div>
                                 </div>
-                                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                                <div class="text-danger model-only" asp-validation-summary="ModelOnly"></div>
                                 <div class="col-lg-12 pt-1 mt-md-0">
                                     <div class="forgotton-password_info">
                                         <a href="#"> Forgotten pasward?</a>
@@ -63,4 +63,9 @@
 
 @section scripts{
     <partial name="_ValidationPartial" />
+    <script>
+        $(document).ready(function () {
+            $('.model-only').html($('.model-only').text())
+        })
+    </script>
 }

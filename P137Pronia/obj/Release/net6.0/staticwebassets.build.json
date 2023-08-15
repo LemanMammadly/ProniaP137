@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "juwiMRjjovHZtpsFboOTLPkxdJ1ZvmE1gT2srQqbXlI=",
+  "Hash": "FLoH7twDCKxJZ+Q8YbhZgokkziLUgb5wBsXYE1iHLJs=",
   "Source": "P137Pronia",
   "BasePath": "_content/P137Pronia",
   "Mode": "Default",
@@ -34423,6 +34423,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/assets/select2/js/select2.min.js"
+    },
+    {
+      "Identity": "/Users/imac/Projects/P137Pronia/P137Pronia/wwwroot/emailConfirmation.html",
+      "SourceId": "P137Pronia",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/imac/Projects/P137Pronia/P137Pronia/wwwroot/",
+      "BasePath": "_content/P137Pronia",
+      "RelativePath": "emailConfirmation.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/emailConfirmation.html"
     },
     {
       "Identity": "/Users/imac/Projects/P137Pronia/P137Pronia/wwwroot/Error.html",

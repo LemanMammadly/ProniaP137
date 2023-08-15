@@ -1,37 +1,48 @@
 ﻿<Properties StartupConfiguration="{C3CED910-39C7-435C-B7C3-7BF182EB7312}|Default">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.P137Pronia PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.ItemProperties.P137Pronia PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="P137Pronia/Controllers/AuthController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="P137Pronia/Areas/Manage/Controllers/ProductController.cs">
     <Files>
-      <File FileName="P137Pronia/Views/Shared/_BasketPartial.cshtml" Line="1" Column="1" />
-      <File FileName="P137Pronia/Views/Shared/Components/Header/Default.cshtml" Line="77" Column="58" />
-      <File FileName="P137Pronia/Controllers/AuthController.cs" Line="94" Column="36" />
-      <File FileName="P137Pronia/Program.cs" Line="52" Column="25" />
-      <File FileName="P137Pronia/Views/Home/Index.cshtml" Line="1462" Column="2" />
+      <File FileName="P137Pronia/Program.cs" />
+      <File FileName="P137Pronia/Controllers/FlowerController.cs" />
+      <File FileName="P137Pronia/Controllers/HomeController.cs" />
+      <File FileName="P137Pronia/Controllers/AuthController.cs" />
+      <File FileName="P137Pronia/Views/Auth/Login.cshtml" />
+      <File FileName="P137Pronia/Views/Auth/Register.cshtml" />
+      <File FileName="P137Pronia/wwwroot/emailConfirmation.html" />
+      <File FileName="P137Pronia/Extensions/FileExtension.cs" />
+      <File FileName="P137Pronia/ExtensionServices/Interfaces/IFileService.cs" />
+      <File FileName="P137Pronia/ExtensionServices/Implements/FileService.cs" />
+      <File FileName="P137Pronia/Models/Slider.cs" />
+      <File FileName="P137Pronia/Models/BaseEntity.cs" />
+      <File FileName="P137Pronia/Areas/Manage/Controllers/SliderController.cs" />
+      <File FileName="P137Pronia/Areas/Manage/Controllers/ProductController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="P137Pronia">
+          <Node name="P137Pronia" expanded="True">
             <Node name="P137Pronia" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Views" expanded="True">
-                <Node name="Home" expanded="True" />
-                <Node name="Shared" expanded="True">
-                  <Node name="Components" expanded="True">
-                    <Node name="Header" expanded="True" />
+              <Node name="Areas" expanded="True">
+                <Node name="Manage" expanded="True">
+                  <Node name="Controllers" expanded="True">
+                    <Node name="ProductController.cs" selected="True" />
                   </Node>
                 </Node>
               </Node>
-              <Node name="wwwroot" expanded="True">
-                <Node name="assets" expanded="True">
-                  <Node name="js" expanded="True" />
-                </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="DataAccess" expanded="True" />
+              <Node name="Extensions" expanded="True" />
+              <Node name="ExtensionServices" expanded="True">
+                <Node name="Implements" expanded="True" />
+                <Node name="Interfaces" expanded="True" />
               </Node>
+              <Node name="Views" expanded="True" />
+              <Node name="wwwroot" expanded="True" />
             </Node>
           </Node>
         </State>

@@ -217,7 +217,7 @@
     <div class="container">
         <div class="blog-comment mt-0">
             <h4 class="heading">Comments (@Model.ProductComments.Count)</h4>
-            @foreach (var comment in Model.ProductComments)
+            @foreach (var comment in Model.ProductComments.Where(pc=>pc.ParentId==null))
             {
                 <div class="blog-comment-item">
                     <div class="blog-comment-content">
@@ -229,17 +229,21 @@
                             @comment.Comment
                         </p>
                         <a class="btn btn-custom-size comment-btn" href="javascript:void(0);">Reply</a>
+                        @if (User.Identity.Name == comment.ApppUser.UserName || User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-pronia-primary" asp-action="DeleteComment">Delete</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-pronia-primary" asp-action="ReportComment">Report</a>
+                        }
                     </div>
-                    @if(User.Identity.Name==comment.ApppUser.UserName || User.IsInRole("Admin"))
-                    {
-                      <a class="btn btn-custom-size xl-size btn-pronia-primary" asp-action="DeleteComment">Delete</a>
-                    }
                 </div>
             }
 
         </div>
         @if (User.Identity.IsAuthenticated)
-        {
+         {
             <div class="feedback-area">
                 <h2 class="heading">Leave a comment</h2>
                 <form class="feedback-form" method="post" asp-action="PostComment">
@@ -255,7 +259,7 @@
                     </div>
                 </form>
             </div>
-        }
+         }
         else
         {
             <div class="feedback-area">
